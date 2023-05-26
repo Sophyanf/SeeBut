@@ -15,4 +15,8 @@
     <Resource Include="Images\see.gif" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
 ﻿using SeeBut.Models;
+using SeeBut.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,44 +25,58 @@ namespace SeeBut.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        Field field;
+        MainWindowViewModel mainWindowViewModel;
+        //public int butContent { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            mainWindowViewModel = new MainWindowViewModel();
            
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           // MessageBox.Show("Кнопка нажата");
-            fillButton();
+            mainWindowViewModel.CreatGameField();
+            fillButton(uniformGrid1);
+            fillButton(uniformGrid2);
+            infoBlocK.Text = mainWindowViewModel.ShowFieldText();
+            fillButtonField();
         }
 
-        public void fillButton()
+        private void ButtonField_Click(object sender, RoutedEventArgs e)
         {
-            field = new Field(this);
-            field.FillField();
-            fillButtonShow();
-            
+            var button = sender as Button;
+            button.Content = mainWindowViewModel.GetFieldCell((int)button.Tag);
         }
-
-        public void fillButtonShow()
+        public void fillButton(UniformGrid uniformGrid)
         {
-            if (uniformGrid1.Children.Count != 0)
+           
+            if (uniformGrid.Children.Count != 0)
             {
-                uniformGrid1.Children.Clear();
+                uniformGrid.Children.Clear();
             }
-            for (int i = 0; i < field.YLight; i++)
-                for (int j = 0; j < field.XLight; j++)
-                {
-                    Button button = new Button();
-                    button.Content = field.FieldGame[i, j].ToString();
-                    if (field.FieldGame[i, j] == 0) button.Content = null;
-                    uniformGrid1.Children.Add(button);
-                }
 
-            infoBlocK.Text = field.ShowFieldText();
+            for (int i = 0; i < 100; i++) { 
+                Button button = new Button();
+                uniformGrid.Children.Add(button);
+                button.Tag = i;
+
+                button.Command = mainWindowViewModel.gunBut;    
+                /* не могу сообразить, как поменять  button.Content через mainWindowViewModel.gunBut. 
+                 Если только кнопку передовать, но какие тогда вообще паттерны*/
+                
+                button.Click += ButtonField_Click ;
+                }
         }
 
-
+        public void fillButtonField()
+        {
+            int count = 0;
+            foreach (Button button in uniformGrid1.Children)
+            {
+                button.Content = mainWindowViewModel.GetFieldCell(count);
+                count++;
+            }
+        }
     }
 }

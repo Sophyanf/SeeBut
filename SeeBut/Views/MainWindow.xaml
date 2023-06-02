@@ -3,24 +3,37 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SeeBut"
+        xmlns:vm    ="clr-namespace:SeeBut.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+  
     <StackPanel>
 
         <StackPanel.Background>
             <ImageBrush ImageSource="/SeeBut;component/Images/see.gif" />
         
         </StackPanel.Background>
-        <Button x:Name="button1" Style ="{DynamicResource PlayBut}" Width="60" Height="60" Content="Начать" Click="Button_Click" />
+        <Button x:Name="button1" Style ="{DynamicResource PlayBut}" Width="60" Height="60" 
+                Content="Начать" Click="Button_Click" />
 
         <UniformGrid 
-            Columns="10" Rows="10" 
-            Name="uniformGrid1" 
-            Width="200" Height="200" 
+            Columns="2" Rows="1" 
+            Width="600" Height="200" 
             Background="Transparent">
+       
+            <UniformGrid 
+                Columns="10" Rows="10" 
+                Name="uniformGrid1" 
+                Width="200" Height="200" 
+                Background="Transparent">
+            </UniformGrid>
+            <UniformGrid 
+                Columns="10" Rows="10" 
+                Name="uniformGrid2" 
+                Width="200" Height="200" 
+                Background="Transparent">
+            </UniformGrid>
         </UniformGrid>
-
         <TextBlock x:Name="infoBlocK" />
     </StackPanel>
 </Window> 
